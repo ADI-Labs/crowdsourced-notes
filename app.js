@@ -8,9 +8,9 @@ var config = require('./config/config');
 var io = require('socket.io')(server);
 mongoose = require('mongoose');
 
-mongoose.connect(config.connectionString);
+mongoose.connect(config.mongo.url);
 
-server.listen(config.port);
+server.listen(config.app.port);
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(__dirname, 'public/static')));
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public/static')));
 require('./routes/routes')(app)
 
 console.log("*****************************");
-console.log("* App running at port: " + config.port + " *");
+console.log("* App running at port: " + config.app.port + " *");
 console.log("*****************************");
 
 io.on('connection', function(socket) {
