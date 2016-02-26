@@ -19,5 +19,3 @@ if ! type "node" > /dev/null
 fi
 
 npm install
-
-echo 'node modules downloaded'
