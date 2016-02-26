@@ -18,3 +18,4 @@ if ! type "node" > /dev/null
 		echo "node downloaded"
 fi
 
+npm install
