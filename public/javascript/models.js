@@ -3,7 +3,7 @@
   * Backbone.sync() that allows for use of WebSocket
 **/
 var UserModel = Backbone.model.extend({
-	name: "user",
+	name: 'user',
 	defaults: {
 		id: null,
 		email: null,
@@ -15,18 +15,18 @@ var UserModel = Backbone.model.extend({
 });
 
 var UserCollection = Backbone.model.extend({
-	name: "users",
+	name: 'users',
 	model: UserModel
 });
 
 var PostModel = Backbone.model.extend({
-	name: "post",
+	name: 'post',
 	defaults: {
 		id: null,
 		title: null,
 		content: null,
 		date: null,
-		postedOn: null
+		postedOn: null,
 		upvotes: null,
 		comments: [],
 		tags: []
@@ -34,12 +34,12 @@ var PostModel = Backbone.model.extend({
 });
 
 var PostCollection = Backbone.model.extend({
-	name: "posts",
+	name: 'posts',
 	model: PostModel
 });
 
 var ClassModel = Backbone.model.extend({
-	name: "class",
+	name: 'class',
 	defaults: {
 		id: null,
 		title: null,
@@ -50,12 +50,12 @@ var ClassModel = Backbone.model.extend({
 });
 
 var ClassCollection = Backbone.model.extend({
-	name: "classes",
+	name: 'classes',
 	model: ClassModel
 });
 
 var SectionModel = Backbone.model.extend({
-	name: "section",
+	name: 'section',
 	defaults: {
 		id: null,
 		title: null,
@@ -66,12 +66,12 @@ var SectionModel = Backbone.model.extend({
 });
 
 var SectionCollection = Backbone.model.extend({
-	name: "sections",
+	name: 'sections',
 	model: SectionModel
 });
 
 var LectureModel = Backbone.model.extend({
-	name: "lecture",
+	name: 'lecture',
 	defaults: {
 		id: null,
 		title: null,
@@ -81,6 +81,79 @@ var LectureModel = Backbone.model.extend({
 });
 
 var LectureCollection = Backbone.model.extend({
-	name: "lectures",
+	name: 'lectures',
 	model: LectureModel
 });
+
+// This is the reimplementation that will allows us to use WebSocket for fetch()
+// read(), sync() etc. across Backbone
+// Options should look like:
+// {
+//     attrs: {id:'...',title:'....'},
+//     error: function () {},
+//     success: function () {},
+// }
+
+Backbone.sync = function (method, model, options) {
+	var response;
+	var socket = io.connect('http://localhost:3000');
+
+	switch (method) {
+		case 'create':
+			socket.emit(method, {
+				model: model.name,
+				data: options.attrs || model.toJSON()
+			}, function (err, data) {
+				if (err) {
+					options.error(err);
+					return false;
+				}
+				response = data;
+				options.success(data);
+			});
+			break;
+		case 'read':
+			socket.emit(method, {
+				model: model.name,
+				data: options.attrs || model.toJSON()
+			}, function (err, data) {
+				if (err) {
+					options.error(err);
+					return false;
+				}
+				response = data;
+				options.success(data);
+			});
+			break;
+		case 'update':
+			socket.emit(method, {
+				model: model.name,
+				data: options.attrs || model.toJSON()
+			}, function (err, data) {
+				if (err) {
+					options.error(err);
+					return false;
+				}
+				response = data;
+				options.success(data);
+			});
+			break;
+		case 'delete':
+			socket.emit(method, {
+				model: model.name,
+				data: options.attrs || model.toJSON()
+			}, function (err, data) {
+				if (err) {
+					options.error(err);
+					return false;
+				}
+				response = data;
+				options.success(data);
+			});
+			break;
+		default:
+			console.log('A valid method was not given to Backbone.sync()');
+			return false;
+	}
+	return response;
+};
