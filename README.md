@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #Crowdsourced Notes
 
@@ -97,3 +98,11 @@ Assigning people to tasks
  - Get set up with Github - @Brian, 1 hour
  - Create a Hello World Flask app - @Brian, @Bob, 1 hour
 ####Week 2
+=======
+Crowd Sourced Notes app
+
+```bash
+npm install
+node app.js
+```
+>>>>>>> 983e9640ef27d057d2d0229dfe3a817ad3ea5ead
