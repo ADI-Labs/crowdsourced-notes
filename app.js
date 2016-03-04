@@ -13,7 +13,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 
-var io = require('socket.io')(server);
+var io = require('./scripts/socket/socket').listen(server);
 mongoose = require('mongoose');
 mongoose.connect(config.mongo.url);
 
@@ -45,12 +45,3 @@ require('./routes/routes')(app, passport);
 console.log("*****************************");
 console.log("* App running at port: " + config.app.port + " *");
 console.log("*****************************");
-
-io.on('connection', function(socket) {
-  socket.emit('news', {
-    hello: 'world'
-  });
-  socket.on('my other event', function(data) {
-    console.log(data);
-  });
-});

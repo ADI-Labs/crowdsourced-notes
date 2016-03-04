@@ -37,18 +37,25 @@ module.exports = function(passport) {
 			// from google
 			process.nextTick(function() {
 				User.findOne({
-					'google.id': profile.id
+					'googleID': profile.id
 				}, function(err, user) {
 					if (err)
 						return done(err);
 					if (user) {
 						// refresh token here
-						return done(null, user);
+						user.token = token;
+
+						user.save(function(err) {
+							if (err)
+								throw err;
+							return done(null, user);
+						});
+
 					} else {
 						if(profile.emails[0].value){
 							var newUser = new User();
 
-							newUser.id = profile.id;
+							newUser.googleID = profile.id;
 							newUser.token = token;
 							newUser.name = profile.displayName;
 							newUser.email = profile.emails[0].value;
