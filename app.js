@@ -21,7 +21,7 @@ server.listen(config.app.port);
 
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'jade');
-app.use(express.static(path.join(__dirname, 'public/static')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
