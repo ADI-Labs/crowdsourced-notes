@@ -7,4 +7,4 @@ var SectionSchema = new mongoose.Schema({
 	lectures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lecture'}]
 });
 
-mongoose.model('Section', SectionSchema);
+module.exports = mongoose.model('Section', SectionSchema);

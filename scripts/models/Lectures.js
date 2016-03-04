@@ -6,4 +6,4 @@ var LectureSchema = new mongoose.Schema({
 	posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
 });
 
-mongoose.model('Lecture', LectureSchema);
+module.exports = mongoose.model('Lecture', LectureSchema);

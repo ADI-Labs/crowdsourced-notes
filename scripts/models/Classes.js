@@ -7,4 +7,4 @@ var ClassSchema = new mongoose.Schema({
 	sections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Section'}]
 });
 
-mongoose.model('Class', ClassSchema);
+module.exports = mongoose.model('Class', ClassSchema);
