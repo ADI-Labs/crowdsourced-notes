@@ -12,4 +12,4 @@ var PostSchema = new mongoose.Schema({
 	tags: Array
 });
 
-mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Post', PostSchema);
