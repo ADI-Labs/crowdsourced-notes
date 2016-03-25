@@ -1,8 +1,6 @@
-define(
-	'models/Class',
-	['jquery', 'underscore', 'backbone'],
+define(['jquery', 'underscore', 'backbone'],
 	function ($, _, Backbone) {
-		return Backbone.model.extend({
+		return Backbone.Model.extend({
 			name: 'class',
 			defaults: {
 				id: null,
@@ -10,7 +8,8 @@ define(
 				course_code: null,
 				semester: null,
 				sections: []
-			}
+			},
+			references: 'sections'
 		});
 	}
 );

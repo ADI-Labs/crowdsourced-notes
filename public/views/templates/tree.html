@@ -1,0 +1,139 @@
+<style>
+	.navTree {
+		margin-top: 1.5em;
+	}
+	#tree::-webkit-scrollbar {
+    display: none;
+	}
+	.tree-list {
+
+	}
+	.tree-list-item {
+		display: inline-block;
+		padding-right: 1em;
+		font-size: 1.5em;
+		border: none;
+		border-bottom: 1px solid black;
+	}
+	.children .tree-list-item {
+		font-size: 1em;
+	}
+	.tree-list-node {
+		margin-top: 0.5em;
+		cursor: pointer;
+	}
+	.tree-list-node:last-child {
+		border:none;
+	}
+	.tree-list-node .children {
+		padding-left: 2em;
+		display: none;
+	}
+	.tree-filter input{
+		font-size: 1.5em;
+		background-color: rgba(0,0,0,0);
+		width: 100%;
+		padding: 0.25em 0.25em 0.5em 0.5em;
+		margin-right: 1em;
+		border: none;
+		border-bottom: 1px solid black;
+	}
+	.tree-filter input::placeholder {
+		font-style: italic;
+		color: grey;
+	}
+	.tree-filter input::-moz-placeholder {
+		font-style: italic;
+		color: grey;
+	}
+	.tree-filter input::-webkit-placeholder {
+		font-style: italic;
+		color: grey;
+	}
+	.tree-filter input::-ms-placeholder {
+		font-style: italic;
+		color: grey;
+	}
+</style>
+<div class="tree-list navTree">
+	<!-- Filter  -->
+	<div class="tree-filter">
+		<input type="text" class="" placeholder="filter"/>
+	</div>
+	<!-- To display TreeList of Classes (sub:section) -->
+	{{# class }}
+	<div class="tree-list-node parent">
+		<i class="fa fa-plus-square-o"></i>
+		<a class="tree-list-item" data-id="{{ _id }}">
+			{{course_code}} {{title}} <span class="badge"></span>
+		</a>
+		<div class="children">
+			{{# sections }}
+			<div class="tree-list-node child">
+				<a class="tree-list-item" href="#/section/{{ _id }}" data-id="{{ _id }}">
+					{{ section_code }} {{ title }} <span class="badge"></span>
+				</a>
+			</div>
+			{{/ sections }}
+		</div>
+	</div>
+	{{/ class}}
+
+	<!-- To display TreeList of Sections (sub: lecture) -->
+	{{# section }}
+	<div class="tree-list-node parent">
+		<i class="fa fa-plus-square-o"></i>
+		<a class="tree-list-item" data-id="{{ _id }}">
+			{{section_code}} {{title}} <span class="badge"></span>
+		</a>
+		<div class="children">
+			{{# lectures }}
+			<div class="tree-list-node child">
+				<a class="tree-list-item" href="#/lecture/{{ _id }}" data-id="{{ _id }}">
+					{{ title }} <span class="badge">{{ posts.length }}</span>
+				</a>
+			</div>
+			{{/ lectures }}
+		</div>
+	</div>
+	{{/ section}}
+
+</div>
+<script>
+	$(function () {
+		// Expanding and contracting functionality for tree nodes
+		$('.tree-list-node.parent').click( function(e) {
+			var icon = $(this).children("i");
+			if (icon.is('.expanded')) {
+				icon.removeClass("fa-minus-square-o").addClass('fa-plus-square-o');
+				$(this).children(".children").hide()
+			} else {
+				icon.removeClass("fa-plus-square-o").addClass('fa-minus-square-o');
+				$(this).children(".children").show();
+			}
+			icon.toggleClass("expanded");
+		});
+		$('.tree-list-item.child').click(function (e) {
+			console.log("child", "clicked");
+			e.stopImmediatePropagation();
+			e.preventDefault();
+			$(this).children("a").click();
+		});
+
+		// Filtering
+		$('.tree-filter input').keyup(function() {
+			var $input = $(this);
+			console.log("input", $input.val());
+			$('.tree-list-node.parent').each(function() {
+				var contains = RegExp($input.val(), 'i');
+				var i = contains.test($(this).children(".tree-list-item").text());
+				var j = contains.test($(this).children(".tree-list-node .tree-list-item").text());
+				if ( i || j ) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		});
+	});
+</script>

@@ -1,14 +1,13 @@
-define(
-	'models/User',
-	['jquery', 'underscore', 'backbone'],
+define(['jquery', 'underscore', 'backbone'],
 	function ($, _, Backbone) {
-		return Backbone.model.extend({
+		return Backbone.Model.extend({
 			name: 'user',
+			idAttribute: '_id',
 			defaults: {
-				id: null,
+				googleID: null,
 				email: null,
-				full_name: null,
-				createdAt: null,
+				name: null,
+				created_at: null,
 				classes: [],
 				posts: []
 			}

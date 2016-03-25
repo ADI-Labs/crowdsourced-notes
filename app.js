@@ -38,6 +38,7 @@ app.use(session({ // prob should generate new key every time
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+app.use('/templates', express.static(path.join(__dirname, 'public/views/templates')));
 
 require('./scripts/authenticate/auth')(passport);
 require('./routes/routes')(app, passport);
@@ -45,3 +46,12 @@ require('./routes/routes')(app, passport);
 console.log("*****************************");
 console.log("* App running at port: " + config.app.port + " *");
 console.log("*****************************");
+
+io.on('connection', function(socket) {
+  socket.emit('news', {
+    hello: 'world'
+  });
+  socket.on('my other event', function(data) {
+    console.log(data);
+  });
+});

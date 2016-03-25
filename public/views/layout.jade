@@ -1,11 +1,21 @@
 doctype html
 html(lang="")
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='//code.jquery.com/jquery-1.12.0.min.js')
-    script(src='/socket.io/socket.io.js')
-    script(src='/javascript/lib/require/require.js')
-    script(src='javascript/socket.js',data-main='javascript/index')
-  body
-    block content
+
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.css')
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+		link(rel="stylesheet", href='/stylesheets/material-design-color-palette.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='/socket.io/socket.io.js')
+		script(src='/javascript/lib/require/require.js',data-main='javascript/index')
+		script(src='/javascript/socket.js')
+		script(src='/javascript/lib/jquery/jquery.min.js')
+		script(src='/javascript/lib/bootstrap/bootstrap.js')
+	body
+		.container-fluid(style="height:100%")
+			.row(style="height:100%")
+				#content.col-xs-12.col-sm-9.col-sm-push-3.col-md-8.col-md-push-4.col-lg-9.col-lg-push-3
+					block content
+				#tree.col-xs-12.col-sm-3.col-sm-pull-9.col-md-4.col-md-pull-8.col-lg-2.col-lg-pull-8
+
