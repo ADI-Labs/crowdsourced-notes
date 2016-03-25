@@ -1,0 +1,40 @@
+<style>
+	#recent-posts {
+		width: 100%;
+		float: left;
+		margin-bottom: 2em;
+	}
+
+	.page-header {
+		display: block;
+	}
+	/*button.new-post {
+		display: inline-block;
+		background-color: black;
+		color: white;
+		border-radius: 28px 28px;
+		font-weight: 500;
+		font-size: 1.5em;
+		line-height: 1.1;
+	}*/
+	/* Extra small devices (phones, less than 768px) */
+	/* No media query since this is the default in Bootstrap */
+
+	/* Small devices (tablets, 768px and up) */
+	@media (min-width: 768px) {  }
+
+	/* Medium devices (desktops, 992px and up) */
+	@media (min-width: 992px) {  }
+
+	/* Large devices (large desktops, 1200px and up) */
+	@media (min-width: 1280px) {  }
+</style>
+<div class="page-header">
+	<h1>{{ title }}</h1>
+</div>
+<a href="/#/new"class="btn btn-block btn-lg mdc-bg-grey-900 mdc-text-grey-200">
+	<i class="fa fa-plus"></i> NEW POST
+</a>
+<h3 >Most recent notes</h3>
+<div id="recent-posts"></div>
+<h3>Last sections viewed</h3>

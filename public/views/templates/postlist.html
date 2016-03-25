@@ -1,0 +1,199 @@
+<style>
+	.post-list {
+		width: 100%;
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		float:left;
+	}
+	.post-list .col {
+		padding-right: 0;
+	}
+	.post-list-item {
+		transition: box-shadow .25s;
+		background-color: white;
+		padding: 1em;
+		padding-bottom: 0.75em;
+		margin: 0.5em 0 0.5em 0;
+		border-radius: 2px;
+		display: inline-block;
+		float: left;
+		position: relative;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	}
+	.post-list-item .item-image {
+		position: relative;
+		float: left;
+		width: 25%;
+		height: auto;
+		background-color: black;
+		margin-right: 1em;
+	}
+	.post-list-item .item-heading {
+		margin-top: 0px;
+		height: auto;
+	}
+	.post-list-item .item-body {
+		padding: 0;
+		margin: 0;
+	}
+	.post-list-item p.item-text {
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		display: inline;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.post-list-item .item-footer {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		position: relative;
+		bottom: 0;
+	}
+	.item-footer .date {
+		font-size: 14px;
+		position: relative;
+		top: 25%;
+		padding-right: 0;
+		color: gray;
+	}
+	.item-footer .upvotes {
+		margin: 0 0.5em 0 0;
+		padding: 0;
+		overflow: hidden;
+	}
+	.item-footer .upvote {
+		padding: 0 0.5em 0 0;
+	}
+	.item-footer .downvote {
+		padding: 0 0.5em 0 0;
+	}
+	.item-footer .star {
+		padding: 0 0.5em;
+	}
+	/* Extra small devices (phones, less than 768px) */
+	/* No media query since this is the default in Bootstrap */
+
+	/* Small devices (tablets, 768px and up) */
+	@media (min-width: 768px) {  }
+
+	/* Medium devices (desktops, 992px and up) */
+	@media (min-width: 992px) {  }
+
+	/* Large devices (large desktops, 1200px and up) */
+	@media (min-width: 1280px) {
+		.post-list-item .item-image {
+			position: relative;
+			float: left;
+			width: 25%;
+			height: auto;
+			background-color: black;
+			margin-right: 1em;
+		}
+	}
+</style>
+<ul class="row post-list">
+{{# posts }}
+<div class="col col-xs-12 col-sm-6 col-md-6 col-lg-4">
+	<li class="post-list-item" onclick="alert">
+		<div class="item-body">
+			<img src="/images/default_avatar.svg" class="item-image img-circle" />
+			<a href="#/post/{{_id}}" id="{{_id}}">
+				<h4 class="item-heading">{{title}}</h4>
+			</a>
+			<p class="item-text"> {{ content }} </p>
+		</div>
+		<div class="item-footer row">
+			<div class="date col col-xs-6 col-sm-6">
+				<small><bold> {{ postedOn }} </bold></small>
+			</div>
+			<div class="upvotes col col-xs-2 col-sm-2">
+				{{ upvotes }}
+			</div>
+			<div class="upvote col col-xs-1 col-sm-1" data-id="{{_id}}">
+				<i class="fa fa-arrow-up"></i>
+			</div>
+			<div class="downvote col col-xs-1 col-sm-1" data-id="{{_id}}">
+				<i class="fa fa-arrow-down"></i>
+			</div>
+			<div class="star col col-xs-1 col-sm-1" data-id="{{_id}}">
+				{{# user.starred[_id] }}
+				<i class="fa fa-star"></i>
+				{{/ user.starred[_id] }}
+				{{^ user.starred[_id] }}
+				<i class="fa fa-star-o"></i>
+				{{/ user.starred[_id] }}
+			</div>
+		</div>
+	</li>
+</div>
+{{/ posts }}
+</ul>
+
+<script>
+$(function () {
+	// Evening thumbnail heights
+	$('.item-text').each(function () {
+		if ($(this).text().length > 200) {
+			$(this).html($(this).text().substring(0, 200).concat("&hellip;"));
+		}
+	});
+	$('.item-heading').each(function () {
+		if ($(this).text().length > 45) {
+			$(this).html($(this).text().substring(0, 41).concat("&hellip;"));
+		}
+	});
+
+	// Handling ui events
+	$('.star').click(function () {
+		var icon = $(this).children("i");
+		if (icon.hasClass('fa-star')) {
+			icon.removeClass('fa-star mdc-text-blue').addClass('fa-star-o mdc-text-grey');
+		} else {
+			icon.removeClass('fa-star-o mdc-text-grey').addClass('fa-star mdc-text-blue-500');
+		}
+	});
+
+	$('.upvote').click(function () {
+		var icon = $(this).children("i");
+		if (icon.hasClass('mdc-text-green'))
+			icon.removeClass('mdc-text-green').addClass('mdc-text-grey');
+		else
+			icon.removeClass('mdc-text-grey').addClass('mdc-text-green');
+	});
+	$('.downvote').click(function () {
+		var icon = $(this).children("i");
+		if (icon.hasClass('mdc-text-red'))
+			icon.removeClass('mdc-text-red').addClass('mdc-text-grey');
+		else
+			icon.removeClass('mdc-text-grey').addClass('mdc-text-red');
+	});
+
+	$(window).resize(adjustPostHeights);
+	adjustPostHeights();
+	function adjustPostHeights () {
+		var maxItemHeaderHeight = 0;
+		$('.item-heading').height('auto');
+		$('.item-heading').height(function(i,h) {
+			if (maxItemHeaderHeight < h) {
+				maxItemHeaderHeight = h;
+			}
+		});
+		$('.item-heading').height(maxItemHeaderHeight);
+
+		var maxTextHeight = 0;
+		$('.item-body').height('auto');
+		$('.item-body').height(function(i,h) {
+			if (maxTextHeight < h) {
+				console.log(h)
+				maxTextHeight = h;
+			}
+		});
+		$('.item-body').height(maxTextHeight);
+
+	};
+
+});
+</script>
