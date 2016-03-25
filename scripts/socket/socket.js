@@ -2,6 +2,9 @@
 var socketio = require('socket.io')
 var User = require('../models/Users');
 var Post = require('../models/Posts');
+var Section = require('../models/Sections');
+var Class = require('../models/Classes');
+
 var fs = require('fs');
 var path = require('path');
 
@@ -34,7 +37,7 @@ module.exports.listen = function(app){
           var desiredPath = path.resolve('../lib/images/' + imageID);
           console.log(data.post.content);
 
-          var fileName = path.resolve(__dirname, '../../lib/images/' + imageID);
+          var fileName = path.resolve(__dirname, '../../lib/images/' + imageID + '.png');
           console.log(fileName);
 
           fs.open(fileName, 'a', 0755, function(err, fd) {
@@ -47,7 +50,7 @@ module.exports.listen = function(app){
             })
           })
           
-          newPost.content = path.resolve(__dirname, '../../lib/images/' + imageID);
+          newPost.content = path.resolve(__dirname, '../../lib/images/' + imageID + '.png');
 
         } else {
           newPost.content = data.post.content;
@@ -67,6 +70,33 @@ module.exports.listen = function(app){
 					throw err;
 				socket.emit('createFin', newPost);
 			});
+
+      // Eventually Add Dynamic Creation of Sections
+      // if (Section.findOne())
+
+      var newSection = new Section();
+      newSection.title = "Section";
+      newSection.section_code = "052";
+      newSection.professor = "Paul Blaer";
+      newSection.lectures.push(newPost);
+
+      newSection.save(function(err) {
+        if (err) throw err;
+        socket.emit('sectionFin', newSection);
+      });
+
+      var newClass = new Class();
+
+      newClass.title = "Class";
+      newClass.course_code = "W1004";
+      newClass.semester = "Fall";
+      newClass.sections.push(newSection);
+
+      newClass.save(function(err) {
+        if (err) throw err;
+        socket.emit('classFin', newClass);
+      });
+
   		});
 
 
