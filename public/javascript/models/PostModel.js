@@ -1,8 +1,6 @@
-define(
-	'models/Post',
-	['jquery', 'underscore', 'backbone'],
+define(['jquery', 'underscore', 'backbone'],
 	function ($, _, Backbone) {
-		return Backbone.model.extend({
+		return Backbone.Model.extend({
 			name: 'post',
 			defaults: {
 				id: null,

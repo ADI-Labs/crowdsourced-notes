@@ -1,10 +1,9 @@
-define(
-	'collections/Class',
-	['jquery', 'underscore', 'backbone', 'models/Class'],
+define(['jquery', 'underscore', 'backbone', 'models/ClassModel'],
 	function ($, _, Backbone, ClassModel) {
-		return Backbone.model.extend({
-			name: 'classes',
-			model: ClassModel
+		return Backbone.Collection.extend({
+			name: 'class',
+			model: ClassModel,
+			references: 'sections'
 		});
 	}
 );

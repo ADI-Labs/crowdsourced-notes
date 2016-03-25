@@ -1477,7 +1477,11 @@ Backbone.sync = function (method, model, options) {
 	  case 'read':
 		  sock.emit(method, {
 			  model: model.name,
-			  query: options.attrs || model.toJSON()
+			  query: options.attrs || model.attrs,
+			  ref: options.ref || model.references,
+			  sort: options.sort || model.sort,
+			  limit: options.limit || model.limit,
+			  select: options.select || model.select
 		  }, function (err, data) {
 			  if (err) {
 				  console.log(err);

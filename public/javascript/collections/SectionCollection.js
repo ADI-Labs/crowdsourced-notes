@@ -1,9 +1,7 @@
-define(
-	'collections/Section',
-	['jquery', 'underscore', 'backbone', 'models/User'],
+define(['jquery', 'underscore', 'backbone', 'models/UserModel'],
 	function ($, _, Backbone, SectionModel) {
-		return Backbone.model.extend({
-			name: 'sections',
+		return Backbone.Collection.extend({
+			name: 'section',
 			model: SectionModel
 		});
 	}

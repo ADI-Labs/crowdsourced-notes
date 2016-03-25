@@ -7,7 +7,9 @@ require.config({
 		backbone: 'lib/backbone/backbone',
 		mustache: 'lib/mustache/mustache',
 		text: 'lib/text/text',
-		stache: 'lib/stache/stache'
+		stache: 'lib/stache/stache',
+		bootstrap: 'lib/bootstrap/bootstrap',
+		moment: 'lib/momentjs/moment.min'
 	},
 	shim: {
 		underscore: {
@@ -16,6 +18,14 @@ require.config({
 		backbone: {
 			deps: ['underscore', 'jquery'],
 			exports: 'Backbone'
+		},
+		bootstrap: {
+			deps: ['jquery']
+		}
+	},
+	config: {
+		moment: {
+			noGlobal: true
 		}
 	}
 });

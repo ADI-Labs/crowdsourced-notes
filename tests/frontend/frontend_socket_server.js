@@ -45,7 +45,13 @@ var models = {
 io.on('connection', function (socket) {
 	socket.on('read', function(data, callback) {
 		console.log('read', data);
-		models[data.model].find(data.query).exec(callback);
+		var query = models[data.model].find(data.query);
+		if (data.ref) { query = query.populate(data.ref); }
+		if (data.sort) { query = query.sort(data.sort); }
+		if (data.select) { query = query.select(data.select);}
+		if (data.limit) { query = query.limit(data.limit)}
+
+		query.exec(callback);
 	});
 	socket.on('create', function(data, callback) {
 		console.log('create', data);
