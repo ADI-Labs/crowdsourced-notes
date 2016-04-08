@@ -28,8 +28,8 @@ module.exports.listen = function(app) {
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
       }
-      console.log(data.post.content)
-      var extension = data.post.content.split(".")[1]
+      console.log(data.post.content);
+      var extension = data.post.content.split(".")[1];
       var newPost = new Post();
       var imageID = genKey();
       var desiredPath = path.resolve('../lib/images/' + imageID);
@@ -90,8 +90,48 @@ module.exports.listen = function(app) {
         if (err) throw err;
         socket.emit('classFin', newClass);
       });
-
     });
+
+    socket.on('upload_text', function(data, buffer) {
+      newPost.content = data.post.content;
+      newPost.title = data.post.title;
+      newPost.date = data.post.date;
+      newPost.postedOn = new Date();
+      newPost.upvotes = 0;
+      newPost.comments = [];
+      newPost.tags = data.post.tags;
+
+      newPost.save(function(err) {
+        if (err)
+          throw err;
+        socket.emit('createFin', newPost);
+      });
+
+      // Eventually Add Dynamic Creation of Sections
+      // if (Section.findOne())
+
+      var newSection = new Section();
+      newSection.title = "Section";
+      newSection.section_code = "052";
+      newSection.professor = "Paul Blaer";
+      newSection.lectures.push(newPost);
+
+      newSection.save(function(err) {
+        if (err) throw err;
+        socket.emit('sectionFin', newSection);
+      });
+
+      var newClass = new Class();
+
+      newClass.title = "Class";
+      newClass.course_code = "W1004";
+      newClass.semester = "Fall";
+      newClass.sections.push(newSection);
+
+      newClass.save(function(err) {
+        if (err) throw err;
+        socket.emit('classFin', newClass);
+      });
   });
 
   return io;
