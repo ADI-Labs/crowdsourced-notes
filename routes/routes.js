@@ -1,6 +1,8 @@
-module.exports = function (app, passport){
-	app.get('/', function (req, res) {
-		res.render('index', {title : "Hello World"})
+module.exports = function(app, passport) {
+	app.get('/', function(req, res) {
+		res.render('index', {
+			title: "Hello World"
+		})
 	});
 
 	app.get('/logout', function(req, res) {
@@ -9,12 +11,15 @@ module.exports = function (app, passport){
 	});
 
 	// Google Routes
-	app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email']}));
+	app.get('/auth/google', passport.authenticate('google', {
+		scope: ['profile', 'email']
+	}));
 
 	// google callback
 	app.get('/auth/google/callback',
 		passport.authenticate('google', {
-			successRedirect: '/',
+			successRedirect: '/dashboard',
 			failureRedirect: '/'
-		}));
+		})
+	);
 }
