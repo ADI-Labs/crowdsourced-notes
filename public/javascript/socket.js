@@ -21,9 +21,8 @@ function init() {
 	window.onload = function() {
 		console.log(document.getElementById('title'));
     	filesUpload = document.getElementById('input-files');
-    	filesUpload.addEventListener('change', fileHandler, false);		
+    	filesUpload.addEventListener('change', fileHandler, false);
 	}
-
 }
 
 /**
@@ -39,7 +38,7 @@ function fileHandler(e) {
     }
 }
 
-function sendFile() {
+function sendFile() { // what class does this file belong to?
     if (file) {
         //read the file content and prepare to send it
         var reader = new FileReader();
@@ -49,7 +48,7 @@ function sendFile() {
             //get all content
             var buffer = e.target.result;
             //send the content via socket
-            socket.emit('create', {post: {title: 'Example', content: file.name, isImage: true}}, buffer);
+            socket.emit('upload_image', {post: {title: 'Example', content: file.name}}, buffer);
         };
         reader.readAsBinaryString(file);
     }
