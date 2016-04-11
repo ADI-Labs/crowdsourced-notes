@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
 	});
 	socket.on('update', function(data, callback) {
 		console.log('update', data);
-		model[data.model].update(data.query, data.data, {multi: true}, callback);
+		models[data.model].update(data.query, data.data, {multi: true}, callback);
 	});
 	socket.on('delete', function(data, callback) {
 		console.log('delete', data);
