@@ -3,7 +3,7 @@ module.exports = {
     port: process.env.PORT || 3000
   },
   mongo: {
-    url: 'mongodb://user:useruser@ds017688.mlab.com:17688/crowdsourced-notes'
+    url: 'mongodb://user:notes@ds019960.mlab.com:19960/crowdsourcednotes'
   },
   googleAuth: {
     clientID: '607757613805-2fp5edp6in5eij3m5k6h3d74073qlp36.apps.googleusercontent.com',

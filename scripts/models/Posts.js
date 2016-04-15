@@ -5,11 +5,9 @@ var PostSchema = new mongoose.Schema({
 	content: String,
 	date: Date,
 	postedOn: Date,
-	// Need to change the Following Three as
-	// we continue to build
 	upvotes: Number,
-	comments: Array,
-	tags: Array
+	comments: Array, // let's make a comment object
+	tags: Array // maybe tag object too
 });
 
 module.exports = mongoose.model('Post', PostSchema);

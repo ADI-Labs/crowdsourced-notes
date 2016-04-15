@@ -86,9 +86,21 @@ define('router',
 					});
 
 			});
-			// appRouter.on('showSection', function (sectionId) {});
-			// appRouter.on('showPost', function (postId) {});
+			router.on('route:showPost', function (postId) {
+				// Load modules required for view
+				require(['views/PostView', 'models/PostModel'], function (PostView, PostModel) {
+					// Hide tree and expand content
+					$('#content').removeClass(fullWidthContentSizing).addClass(defaultContentSizing);
+					$('#tree').show();
 
+					var postView = new PostView({
+						post: new PostModel({ _id: postId}),
+						el: '#content'
+					});
+				});
+			});
+			// appRouter.on('showSection', function (sectionId) {});
+			window.router = router;
 			Backbone.history.start();
 		};
 

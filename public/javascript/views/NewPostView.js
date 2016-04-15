@@ -9,7 +9,13 @@ define(['jquery',
 				this.postEdit = new PostEditView({
 					classes: params.classes,
 					sections: params.sections,
-					post: params.post
+					post: params.post,
+					onSubmitPost: function(model) {
+						location.hash = '#/post/' + model.id;
+					},
+					onDiscardPost: function() {
+						location.hash = '#/dashboard';
+					}
 				});
 				this.render();
 			},
