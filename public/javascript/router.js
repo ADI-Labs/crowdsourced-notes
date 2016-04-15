@@ -86,6 +86,27 @@ define('router',
 					});
 
 			});
+
+			router.on('route:showLecture', function(lectureId) { //on event route:showSection, run this function (anonymous)
+				require(['views/LectureView', 'views/TreeView', 'collections/ClassCollection', 'collections/SectionCollection', 'models/PostModel', 'models/LectureModel'],
+					function (SectionView, TreeView, ClassCollection, SectionCollection, PostModel, SectionModel) { //May require more things!
+						//Show tree and size content
+						$('#content').removeClass(fullWidthContentSizing).addClass(defaultContentSizing);
+						$('#tree').show();
+
+						//Initialize page
+						var section = new SectionView({
+							//What do I want to show here, how do I show it and where do I get that data from?
+							model: new SectionModel({_id: sectionId}),
+							el: '#content'
+						});
+						var tree = window.navTree || new TreeView({
+							collection: new ClassCollection(),
+							el:'#tree' //displays el Element in views.templates.layout.jade
+						});
+
+					});
+			});
 			router.on('route:showPost', function (postId) {
 				// Load modules required for view
 				require(['views/PostView', 'models/PostModel'], function (PostView, PostModel) {
@@ -99,6 +120,8 @@ define('router',
 					});
 				});
 			});
+
+
 			// appRouter.on('showSection', function (sectionId) {});
 			window.router = router;
 			Backbone.history.start();
@@ -108,4 +131,4 @@ define('router',
 			initialize: initialize
 		};
 	}
-);
+)
