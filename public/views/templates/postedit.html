@@ -8,15 +8,7 @@
 		//text-decoration: underline;
 		display: block;
 	}
-	.note-tags {
-		border: none;
-		border-bottom: 1px solid black;
-		font-size: 1.5em;
-		padding: 0.25em 0.25em 0.5em 0.5em;
-		width: 100%;
-		display: block;
-		margin-bottom: 1em;
-	}
+
 	input::placeholder {
 		font-style: italic;
 		color: grey;
@@ -57,6 +49,7 @@
 		background-color: black;
 		width: 100%;
 		margin-left: 0%;
+		padding: 5px;
 	}
 
 	.new-note-metadata {
@@ -67,17 +60,33 @@
 	.note-submit {
 		height: 2em;
 		margin: 1em;
-		border-radius: 2em;
+		margin-right: 0;
 		overflow: hidden;
 	}
 
 	.note-save, .note-discard {
 		border: none;
+		border-bottom: 1px solid;
+		background: none;
+		font-size: 1.5em;
 		height: 100%;
 		padding: 0;
 		margin: 0;
 	}
-
+	.note-save {
+		color: green;
+	}
+	.note-discard {
+		color: red;
+	}
+	.note-save:hover {
+		color:white;
+		background-color: green;
+	}
+	.note-discard:hover {
+		color: white;
+		background-color: red;
+	}
 	/* Extra small devices (phones, less than 768px) */
 	/* No media query since this is the default in Bootstrap */
 
@@ -103,7 +112,6 @@
 		}
 
 		.note-save, .note-discard {
-			border-radius: 4em;
 			overflow: hidden;
 		}
 	}
@@ -138,43 +146,43 @@
 
 	@media (min-width:1500px) {
 		.note-format-icon {
-			width: 40%;
-			margin-left: 60%;
+			width: 60%;
+			margin-left: 40%;
 		}
 		.note-content {
 			font-size: 1.5em;
 		}
 	}
 </style>
-<form name="new-note">
-	<input class="note-title" placeholder="note title" name="title"/>
+<form name="new-note" class="container" onsubmit="false">
+	<input class="note-title" placeholder="note title" name="title">{{title}}</input>
 	<div class="row">
 		<div class="note-formatting col-xs-2 col-sm-1">
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-bold"></i></button>
+				<button class="btn btn-sm"><i class="fa fa-bold fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-italic"></i></button>
+				<button class="btn btn-sm"><i class="fa fa-italic fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-underline"></i></button>
+				<button class="btn btn-sm"><i class="fa fa-underline fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-list-ul"></i></button>
+				<button class="btn btn-sm"><i class="fa fa-list-ul fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-list-ol"></i></button>
+				<button class="btn btn-sm"><i class="fa fa-list-ol fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-paperclip"></i></button>
+				<button class="btn btn-sm"><i class="fa fa-paperclip fa-fw"></i></button>
 			</div>
 		</div>
-		<textarea class="col-xs-10 col-sm-11 note-content" placeholder="in class today, the quick brown fox jumped over the lazy dog." rows="20">{{post.content}}</textarea>
+		<textarea class="col-xs-10 col-sm-11 note-content" placeholder="in class today, the quick brown fox jumped over the lazy dog." rows="20">{{content}}</textarea>
 	</div>
 	<div class="new-note-metadata">
 		<div class="row">
 			<div style="padding-left:0; padding-right:0" class="col-xs-push-1 col-sm-push-1 col-xs-11 col-sm-11">
-				<input class="note-tags" placeholder="#tags"
+					<div id="new-note-tags"></div>
 			</div>
 		</div>
 		<div class="row">
@@ -190,12 +198,16 @@
 			</div>
 		</div>
 	</div>
-	<div class="row note-submit">
-		<button class="col-xs-6 col-sm-push-5 col-sm-3 col-md-push-7 col-md-2 col-lg-push-9 col-lg-1 mdc-bg-red note-discard">
-			<i class="fa fa-lg fa-times mdc-text-grey-200"></i>
+	<div class="row note-submit col-xs-11 col-xs-push-1 col-sm-11 col-sm-push-1">
+		<button class="col-xs-6 col-sm-push-6 col-sm-3 col-md-push-6 col-md-3 note-discard">
+			<span>discard</span>
 		</buttton>
-		<button class="col-xs-6 col-sm-push-6 col-sm-3 col-md-push-8 col-md-2 col-lg-push-10 col-lg-1 mdc-bg-green note-save">
-			<i class="fa fa-lg fa-check mdc-text-grey-200"></i>
+		<button class="col-xs-6 col-sm-push-6 col-sm-3 col-md-push-6 col-md-3 note-save">
+			<span>submit</span>
 		</button>
 	</div>
 </form>
+
+<script>
+
+</script>
