@@ -1,0 +1,157 @@
+<style>
+  .taginput {
+    height: 3em;
+    /*margin: 1em;*/
+  }
+  .taginput-input {
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 1.5em;
+    padding: 0.25em 0.25em 0.5em 0.5em;
+    width: 100%;
+    display: block;
+    margin-bottom: 1em;
+    position: absolute;
+    top: 0;
+    z-index: 300;
+  }
+  .taginput-tag {
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 1.5em;
+    margin-left: 0.125em;
+    margin-top: 0.125em;
+    color: white;
+    z-index: 302;
+    position: relative;
+    top: -.6em;
+    display: inline;
+    text-align: right;
+    float: left;
+  }
+  .taginput-tag-header {
+    background-color: black;
+    color: gray;
+    font-weight: 100;
+    display: inline;
+    padding: 0.25em 0.25em;
+    margin: 0;
+    position: relative;
+    float: left;
+  }
+  .taginput-tag-header {
+    display: inline;
+    position: relative;
+    left: 0;
+  }
+  .taginput-tag-body {
+    background-color: black;
+    display: inline;
+    padding: 0.25em 0.25em;
+    margin: 0;
+    float:left;
+    position: relative;
+  }
+  .taginput-tag-body a {
+    display:inline;
+    position: relative;
+    left:0;
+    text-decoration: none;
+    color: white;
+  }
+  .taginput-tag-body a:hover {
+    border-bottom: 1px solid white;
+  }
+  .taginput-tag-body input {
+    position: relative;
+    left: 0;
+    background-color: black;
+    color:white;
+    text-decoration: none;
+    border:none;
+    line-height: 1;
+    display: none;
+  }
+  .tag-input-tag-body input:hover {
+    background-color: white;
+    color: black;
+    border-bottom: solid 1px black;
+    display:inline;
+  }
+  .taginput-tag-remove {
+    display: inline;
+    padding: 0.25em;
+    border-left: solid 1px white;
+    background-color: black;
+    margin: 0;
+    float: left;
+  }
+  .taginput-tag-remove:hover {
+    background-color: white;
+    color: black;
+  }
+
+  @media (min-width: 768px) {
+
+		.taginput-input {
+			width: 100%;
+		}
+	}
+
+	/* Medium devices (desktops, 992px and up) */
+	@media (min-width: 1024px) {
+		.taginput-input {
+			width: 48%;
+		}
+	}
+
+	/* Large devices (large desktops, 1200px and up) */
+	@media (min-width:1200px) {
+		.taginput-input {
+			width: 48%;
+		}
+	}
+
+	@media (min-width:1500px) {
+	}
+</style>
+
+<div class="taginput">
+  {{#tags}}
+    <div class="taginput-tag" style="">
+      {{#header}}
+      <div class="taginput-tag-header">
+        <span>{{.}}</span>
+      </div>
+      {{/header}}
+      <div class="taginput-tag-body">
+        <a>{{name}}</a>
+        <input type="text" placeholder="tag" />
+      </div>
+      <div class="taginput-tag-remove">
+        <i class="fa fa-times"></i>
+      </div>
+    </div>
+  {{/tags}}
+  <input class="taginput-input" placeholder="#tags">
+  </input>
+</div>
+
+<script>
+  $(function() {
+
+    // Intra-tag functionality
+    $('.taginput-tag-body a').on('click focus', function (e) {
+      console.log("tag", $(e.currentTarget).text());
+      var width = $(e.currentTarget).width() > 60 ? $(e.currentTarget).width() : 60;
+      $(e.currentTarget).hide();
+      $('.taginput-tag-body input').show().focus().val($(e.currentTarget).text()).width(width);
+    });
+    $('.taginput-tag-body input').on('blur keypress', function (event) {
+      if (event.type == 'blur' || event.which == '13') {
+        $(e.currentTarget).hide();
+        $('.taginput-tag-body a').text($(e.currentTarget).val()).show().blur();
+      }
+    });
+  });
+</script>
