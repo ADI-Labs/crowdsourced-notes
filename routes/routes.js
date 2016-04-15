@@ -3,6 +3,7 @@ module.exports = function(app, passport) {
 		res.render('index', {
 			title: "Hello World"
 		})
+
 	});
 
 	app.get('/logout', function(req, res) {
