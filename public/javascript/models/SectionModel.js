@@ -1,15 +1,19 @@
-define(
-	'models/Section',
-	['jquery', 'underscore', 'backbone'],
+define(['jquery', 'underscore', 'backbone'],
 	function ($, _, Backbone) {
-		return Backbone.model.extend({
+		return Backbone.Model.extend({
 			name: 'section',
 			defaults: {
-				id: null,
+				_id: null,
 				title: null,
 				section_code: null,
 				professor: null,
 				lectures: []
+			},
+			idAttribute: "_id",
+			parse: function (response, options) {
+				if (_.isArray(response)) {
+					return response[0];
+				} return response;
 			}
 		});
 	}
