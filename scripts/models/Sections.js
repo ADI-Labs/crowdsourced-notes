@@ -8,7 +8,7 @@ var SectionSchema = new mongoose.Schema({
   // FOR TESTING PURPOSES
   lectures: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post'
+    ref: 'Lecture'
   }]
 });
 
