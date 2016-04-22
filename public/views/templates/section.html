@@ -18,7 +18,9 @@
 	<!-- We need to insert the most recent lecture -->
 	<!-- And also link to archived notes belonging to this class -->
 
-	{{lectures}}
+	{{# lectures }}
+		{{ title }}
+	{{/ lectures }}
 
 
 {{/ section }}

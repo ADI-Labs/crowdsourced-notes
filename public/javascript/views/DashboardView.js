@@ -5,8 +5,8 @@ define(['jquery',
 	'stache!/templates/dashboard'],
 	function ($, _, Backbone, PostListView, template) {
 		return Backbone.View.extend({
-			initialize: function (params) {
-				this.recentPostList = new PostListView({
+			initialize: function (params) { //router begins a new Dashboard view, calling the initialize function and passing in some parameter
+				this.recentPostList = new PostListView({ //creating an object in {} and passing it into the function ().
 					collection: params.recentPosts,
 					options: {
 						sort: '+postedOn',
