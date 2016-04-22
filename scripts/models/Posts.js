@@ -8,7 +8,7 @@ var PostSchema = new mongoose.Schema({
 	// Need to change the Following Three as
 	// we continue to build
 	upvotes: Number,
-	comments: String,
+	comments: Array,
 	tags: Array
 });
 
