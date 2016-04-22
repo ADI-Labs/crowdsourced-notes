@@ -35,6 +35,19 @@ module.exports.listen = function(app) {
       var desiredPath = path.resolve('../lib/images/' + imageID);
       console.log(data.post.content);
 
+  		socket.on('create', function(data) {
+  			console.log("Creating " + data.post.title);
+
+  			var newPost = new Post();
+  			newPost.title = data.post.title;
+  			newPost.content = data.post.content;
+
+			newPost.save(function(err) {
+				if (err)
+					throw err;
+				socket.emit('createFin', newPost);
+			});
+  		});
       var fileName = path.resolve(__dirname, '../../lib/images/' + imageID + "." + extension);
       console.log(fileName);
 

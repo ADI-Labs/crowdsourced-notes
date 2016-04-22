@@ -46,7 +46,6 @@
 	}
 	.note-format-icon .btn {
 		color: white;
-		background-color: black;
 		width: 100%;
 		margin-left: 0%;
 		padding: 5px;
@@ -154,31 +153,30 @@
 		}
 	}
 </style>
-<form name="new-note" class="container" onsubmit="false">
-	<input class="note-title" placeholder="note title" name="title">{{title}}</input>
+<form name="new-note" onsubmit="false">
+	<input class="note-title divider-color primary-text-color" placeholder="note title" name="title">{{title}}</input>
 	<div class="row">
 		<div class="note-formatting col-xs-2 col-sm-1">
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-bold fa-fw"></i></button>
+				<button class="btn btn-sm accent-color"><i class="fa fa-bold fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-italic fa-fw"></i></button>
+				<button class="btn btn-sm accent-color"><i class="fa fa-italic fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-underline fa-fw"></i></button>
+				<button class="btn btn-sm accent-color"><i class="fa fa-underline fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-list-ul fa-fw"></i></button>
+				<button class="btn btn-sm accent-color"><i class="fa fa-list-ul fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-list-ol fa-fw"></i></button>
+				<button class="btn btn-sm accent-color"><i class="fa fa-list-ol fa-fw"></i></button>
 			</div>
 			<div class="note-format-icon">
-				<button class="btn btn-sm"><i class="fa fa-paperclip fa-fw"></i></button>
+				<button class="btn btn-sm accent-color"><i class="fa fa-paperclip fa-fw"></i></button>
 			</div>
 		</div>
-		<textarea class="col-xs-10 col-sm-11 note-content" placeholder="in class today, the quick brown fox jumped over the lazy dog." rows="20">{{content}}</textarea>
-	</div>
+		<textarea class="col-xs-10 col-sm-11 note-content primary-text-color" placeholder="in class today, the quick brown fox jumped over the lazy dog." rows="20">{{content}}</textarea>
 	<div class="new-note-metadata">
 		<div class="row">
 			<div style="padding-left:0; padding-right:0" class="col-xs-push-1 col-sm-push-1 col-xs-11 col-sm-11">
@@ -186,13 +184,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div style="padding-right:0" class="row col-xs-11 col-xs-push-1 col-sm-11 col-sm-push-1">
+			<div style="padding-right:0;padding-top:1em;" class="row col-xs-11 col-xs-push-1 col-sm-11 col-sm-push-1">
 				<div class="col-xs-12 col-sm-6">
-					<h4>section</h4>
+					<h4 class="primary-text-color">section</h4>
 					<div id="class-tree"></div>
 				</div>
 				<div style="padding-right:0" class="col-xs-12 col-sm-6">
-					<h4>topic</h4>
+					<h4 class="primary-text-color">topic</h4>
 					<div id="section-tree"></div>
 				</div>
 			</div>
