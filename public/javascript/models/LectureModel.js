@@ -12,6 +12,7 @@ define(
 				profesor: null,
 				posts: []
 			}
+			references: 'posts'
 		});
 	}
 );

@@ -1,6 +1,5 @@
 <style type="text/css">
 	.title {
-		color: Navy;
 		font-size: 40px;
 	}
 	.professor{
@@ -12,22 +11,25 @@
 <div>
 	<!-- insert nav bar on top -->
 	{{# section }}
-	<h1 class="title">{{title}} </h1>
+	<h1 class="title primary-text-color">{{title}} </h1>
 	<h2 class = "professor">{{professor}}</h2>
-	<!-- do we really want to show the professor name? Maybe smaller? -->
 	<ul>
 	{{# mostRecentLecture }}
-		<li>{{ title }}</li>
+		<li><a href="#/lecture/{{_id}}">{{ title }}</a></li>
+		<div class="list-group">
+		{{# posts }}
+		<a href="#/lecture/{{_id}}" class="list-group-item">{{ title }}</a>
+		{{/ posts }}
+	</div>
 	{{/ mostRecentLecture }}
 	</ul>
 
-	<!-- We need to insert the most recent lecture -->
-	<!-- And also link to archived notes belonging to this class -->
-	<ul class="list-group">
+	<!-- And also link to archived notes belonging to this class ???? -->
+	<div class="list-group">
 	{{# lectures }}
-		<li class="list-group-item">{{ title }}</li>
+		<a href="#/lecture/{{_id}}" class="list-group-item">{{ title }}</a>
 	{{/ lectures }}
-	</ul>
+	</div>
 
 {{/ section }}
 </div>
