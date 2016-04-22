@@ -1,6 +1,5 @@
 doctype html
 html(lang="")
-
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.css')
@@ -12,8 +11,14 @@ html(lang="")
 		script(src='/javascript/socket.js')
 		script(src='/javascript/lib/jquery/jquery.min.js')
 		script(src='/javascript/lib/bootstrap/bootstrap.js')
-		script(src='/javascript/lib/require/require.js',data-main='javascript/index')
+		script(src='/javascript/lib/require/require.js', data-main='javascript/index')
 	body
+		script(type='text/javascript').
+			var authorized = !{JSON.stringify(authorized)}
+			console.log(authorized)
+			if(authorized === true){
+				loggedin = true;
+			}
 		.container-fluid(style="min-height:100%")
 			.row(style="min-height:100%")
 				#navbar(style="padding:0").col-xs-12.col-sm-12.col-md-10.col-md-push-1
