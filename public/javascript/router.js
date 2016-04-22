@@ -9,6 +9,7 @@ define('router',
 				'dashboard': 'showDashboard',
 				'new': 'showNewPost',
 				'section/:id': 'showSection',
+				'lecture/:id': 'showLecture',
 				'post/:id': 'showPost',
 				'search': 'showSearch',
 				'search/:term': 'showSearch'
@@ -112,32 +113,31 @@ define('router',
 			//																					//
 			// /#/lecture/:id														//
 			//																					//
-			router.on('route:showLecture', function(lectureId) { //on event route:showSection, run this function (anonymous)
-				require(['views/LectureView', 'views/TreeView', 'collections/ClassCollection', 'collections/SectionCollection', 'models/PostModel', 'models/LectureModel'],
-					function (SectionView, TreeView, ClassCollection, SectionCollection, PostModel, SectionModel) { //May require more things!
-						//Show tree and size content
+			router.on('route:showLecture', function(lectureId) {
+				require(['views/LectureView', 'views/TreeView', 'collections/PostCollection', 'models/LectureModel'],
+					function (LectureView, TreeView, PostCollection, LectureModel) {
+						// Show tree and size content
 						$('#content').removeClass(fullWidthContentSizing).addClass(defaultContentSizing);
 						$('#tree').show();
 
-						//Initialize page
-						var section = new SectionView({
-							//What do I want to show here, how do I show it and where do I get that data from?
-							model: new SectionModel({_id: sectionId}),
+						// Initialize page
+						var lecture = new LectureView({
+							model: new LectureModel({_id: lectureId}),
 							el: '#content'
 						});
-						var tree = window.navTree || new TreeView({
-							collection: new ClassCollection(),
-							el:'#tree' //displays el Element in views.templates.layout.jade
-						});
+						// var tree = window.navTree || new TreeView({
+						// 	collection: new ClassCollection(),
+						// 	el:'#tree' //displays el Element in views.templates.layout.jade
+						// });
 
-						window.router.content = newPost;
-						window.navbar.setTitle('new');
-						window.router.currentView = 'new';
+						window.router.content = lecture;
+						window.navbar.setTitle('lecture');
+						window.router.currentView = 'lecture';
 					});
 			});
 
 			//																					//
-			// /#/post 																	//
+			// /#/post/:id															//
 			//																					//
 			router.on('route:showPost', function (postId) {
 				// Load modules required for view
