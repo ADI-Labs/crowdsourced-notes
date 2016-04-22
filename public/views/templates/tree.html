@@ -68,13 +68,13 @@
 			{{course_code}} {{title}} <span class="badge"></span>
 		</a>
 		<div class="children">
-			{{# sections }}
+			{{#sections}}
 			<div class="tree-list-node child">
 				<a class="tree-list-item" href="#/section/{{ _id }}" data-id="{{ _id }}">
 					{{ section_code }} {{ title }} <span class="badge"></span>
 				</a>
 			</div>
-			{{/ sections }}
+			{{/sections}}
 		</div>
 	</div>
 	{{/ class}}
@@ -100,40 +100,36 @@
 
 </div>
 <script>
-	$(function () {
+	// $(function () {
 		// Expanding and contracting functionality for tree nodes
-		$('.tree-list-node.parent').click( function(e) {
-			var icon = $(this).children("i");
-			if (icon.is('.expanded')) {
-				icon.removeClass("fa-minus-square-o").addClass('fa-plus-square-o');
-				$(this).children(".children").hide()
-			} else {
-				icon.removeClass("fa-plus-square-o").addClass('fa-minus-square-o');
-				$(this).children(".children").show();
-			}
-			icon.toggleClass("expanded");
-		});
-		$('.tree-list-item.child').click(function (e) {
-			console.log("child", "clicked");
-			e.stopImmediatePropagation();
-			e.preventDefault();
-			$(this).children("a").click();
-		});
+		// $('.tree-list-node.parent').click( function(e) {
+		// 	var icon = $(this).children("i"); // This is the + or - expand icon
+		// 	if (icon.is('.expanded')) {
+		// 		// If icon was clicked and is expanded, change to a + and contract
+		// 		icon.removeClass("fa-minus-square-o").addClass('fa-plus-square-o');
+		// 		$(this).find(".children").hide();
+		// 	} else {
+		// 		// If icon was clicked and is contracted, change to a - and expand
+		// 		icon.removeClass("fa-plus-square-o").addClass('fa-minus-square-o');
+		// 		$(this).find(".children").show();
+		// 	}
+		// 	icon.toggleClass("expanded");
+		// });
 
 		// Filtering
-		$('.tree-filter input').keyup(function() {
-			var $input = $(this);
-			console.log("input", $input.val());
-			$('.tree-list-node.parent').each(function() {
-				var contains = RegExp($input.val(), 'i');
-				var i = contains.test($(this).children(".tree-list-item").text());
-				var j = contains.test($(this).children(".tree-list-node .tree-list-item").text());
-				if ( i || j ) {
-					$(this).show();
-				} else {
-					$(this).hide();
-				}
-			});
-		});
-	});
+	// 	$('.tree-filter input').keyup(function() {
+	// 		var $input = $(this);
+	// 		console.log("input", $input.val());
+	// 		$('.tree-list-node.parent').each(function() {
+	// 			var contains = RegExp($input.val(), 'i');
+	// 			var i = contains.test($(this).children(".tree-list-item").text());
+	// 			var j = contains.test($(this).children(".tree-list-node .tree-list-item").text());
+	// 			if ( i || j ) {
+	// 				$(this).show();
+	// 			} else {
+	// 				$(this).hide();
+	// 			}
+	// 		});
+	// 	});
+	// });
 </script>

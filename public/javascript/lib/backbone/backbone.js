@@ -1457,19 +1457,26 @@
 Backbone.sync = function (method, model, options) {
   var response;
   var sock = io.connect('http://localhost:8080');
+  // Omitting empty attributes, this is only relevant for create
+  var attributes = _.omit(options.attrs ? options.attrs : model.attributes,
+    function(value, key, object) {
+      return _.isNull(value) || _.isUndefined(value) || _.isEmpty(value);
+  });
+
   console.log("Backbone.sync", method);
+  console.log("Query", attributes);
   switch (method) {
 	  case 'create':
 		  sock.emit(method, {
 			  model: model.name,
-			  data: options.attrs || model.toJSON()
+			  data: model.toJSON()
 		  }, function (err, data) {
 			  if (err) {
 				  console.log(err);
 				  options.error(err);
 				  return false;
 			  }
-			  console.log(data);
+			  console.log('response', data);
 			  response = data;
 			  options.success(data);
 		  });
@@ -1477,7 +1484,7 @@ Backbone.sync = function (method, model, options) {
 	  case 'read':
 		  sock.emit(method, {
 			  model: model.name,
-			  query: options.attrs || model.attrs,
+			  query: _.isEmpty(attributes) ? undefined : attributes,
 			  ref: options.ref || model.references,
 			  sort: options.sort || model.sort,
 			  limit: options.limit || model.limit,
@@ -1488,7 +1495,7 @@ Backbone.sync = function (method, model, options) {
 				  options.error(err);
 				  return false;
 			  }
-			  console.log(data);
+			  console.log('response',data);
 			  response = data;
 			  options.success(data);
 		  });
@@ -1496,7 +1503,8 @@ Backbone.sync = function (method, model, options) {
 	  case 'update':
 		  sock.emit(method, {
 			  model: model.name,
-			  query: options.attrs || model.toJSON()
+			  query: options.attrs,
+        data: model.toJSON()
 		  }, function (err, data) {
 			  if (err) {
 				  options.error(err);

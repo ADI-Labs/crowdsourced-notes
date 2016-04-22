@@ -16,7 +16,8 @@ define(['jquery',
 				this.options = params.options;
 				this.options.success = function (collection, response, options) {
 					collection.each(function(model) {
-						var date = moment(model.get('postedOn'), moment.ISO_8601).format("h:ma ddd");
+						console.log('postedOn', model.get('postedOn'));
+						var date = moment(model.get('postedOn')).fromNow();
 						model.set({postedOn: date});
 					});
 				}
