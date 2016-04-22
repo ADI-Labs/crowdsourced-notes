@@ -1,0 +1,31 @@
+{{# lecture }}
+<style>
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {	}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {	}
+
+/* Large devices (large dcollectionesktops, 1200px and up) */
+@media (min-width: 1280px) {	}
+
+</style>
+<div class="page-header primary-text-color divider-color">
+	<h1>{{ lecture.title }}</h1>
+</div>
+<a href="/#/new" class="item-shadow btn btn-block btn-lg text-primary-color accent-color">
+  <i class="fa fa-plus"></i> NEW POST
+</a>
+<h3 class="secondary-text-color">
+	Professor <span class="primary-text-color">{{ professor }}</span>
+</h3>
+<h3 class="secondary-text-color">
+	Date <span class="primary-text-color">Two days ago</span>
+</h3>
+<h3 class="primary-text-color">Posts</h3>
+<div id="lecture-post-list"> </div>
+
+{{/ lecture }}
