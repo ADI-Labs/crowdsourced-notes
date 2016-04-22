@@ -1,9 +1,27 @@
 module.exports = function(app, passport) {
-	app.get('/', function(req, res) {
-		res.render('index', {
-			title: "Hello World"
-		})
+	app.get('/', function(req, res){
+		if (req.isAuthenticated()) {
+			res.render('layout', {
+				title: "hello world",
+				authorized: true
+			})
+		} else {
+			res.render('index', {
+				title: "hello world",
+				authorized: false
+			});
+		}
+	});
 
+	app.get('/login', function(req, res) {
+		if (req.isAuthenticated()) {
+			res.redirect('/dashboard');
+		} else {
+			res.render('index', {
+				title: "hello world",
+				authorized: false
+			})
+		}
 	});
 
 	app.get('/logout', function(req, res) {
@@ -16,10 +34,9 @@ module.exports = function(app, passport) {
 		scope: ['profile', 'email']
 	}));
 
-	// google callback
 	app.get('/auth/google/callback',
 		passport.authenticate('google', {
-			successRedirect: '/dashboard',
+			successRedirect: '/',
 			failureRedirect: '/'
 		})
 	);

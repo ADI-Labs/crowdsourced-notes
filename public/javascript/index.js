@@ -37,7 +37,7 @@ require.config({
 
 require(['app', 'underscore'], function (App) {
 	App.initialize();
-	if (document.cookie.indexOf('loggedin') > -1) {
+	if (loggedin) {
 		document.location.hash = '#/dashboard';
 	}
 });
