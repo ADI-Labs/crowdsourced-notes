@@ -102,13 +102,13 @@
 <ul class="row post-list">
 {{# posts }}
 <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	<li class="post-list-item" onclick="alert">
+	<li class="post-list-item item-shadow" onclick="alert">
 		<div class="item-body">
 			<img src="/images/default_avatar.svg" class="item-image img-circle" />
 			<a href="#/post/{{_id}}" id="{{_id}}">
-				<h4 class="item-heading">{{title}}</h4>
+				<h4 class="item-heading primary-text-color">{{title}}</h4>
 			</a>
-			<p class="item-text"> {{ content }} </p>
+			<p class="item-text secondary-text-color"> {{ content }} </p>
 		</div>
 		<div class="item-footer row">
 			<div class="date col col-xs-6 col-sm-6">

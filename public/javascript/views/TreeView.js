@@ -9,7 +9,7 @@ define(['jquery', 'underscore', 'backbone', 'stache!/templates/tree'],
 			initialize: function () {
 				this.listenTo(this.collection, 'sync change', this.render);
 				this.collection.fetch({
-					limit: 6
+					limit: 9
 				});
 				this.linksEnabled = true;
 				this.render();

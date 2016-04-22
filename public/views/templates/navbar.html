@@ -1,0 +1,105 @@
+<style>
+  nav.navigation {
+    /*background-color: black;*/
+    width:100%;
+    overflow:auto;
+    margin-bottom: 1em;
+  }
+  #logo {
+    padding: 1em;
+    padding-left: 1.5em;
+    border: none;
+    border-bottom: 1px solid;
+    font-size: 1.5em;
+    color: inherit;
+    border-color: inherit;
+    background-color: inherit;
+  }
+  #page-head {
+    font-size: 1.5em;
+    padding: 1em;
+    padding-left: 1.5em;
+    color: inherit;
+    background-color: inherit;
+    border: none;
+    border-bottom: 1px solid;
+    border-color: inherit;
+  }
+  .navbuttons {
+    font-size: 1.5em;
+    text-align: right;
+    padding-right: 0;
+    padding-left: 0;
+    border-bottom: 1px solid;
+    color: inherit;
+    border-color: inherit;
+    background-color: inherit;
+  }
+  .navbuttons a {
+    transition: all .25s;
+    padding: 1em;
+    float: right;
+    border: none;
+    /*border-bottom: 1px solid;
+    border-bottom-style: inset;*/
+    color: inherit;
+    border-color: inherit;
+    background-color: inherit;
+  }
+
+  .navbuttons a:hover {
+    color: black;
+    background-color: white;
+    /*border-bottom: 1px solid;
+    border-bottom-style: inset;*/
+  }
+  .navbuttons a:first-of-type {
+    /*border-right: 1px solid;
+    border-color: inherit;*/
+  }
+  .navbuttons a.selected {
+    color: black;
+    background-color: white;
+    /*border-bottom: 1px solid;
+    border-bottom-style: inset;*/
+  }
+  .navbuttons a:first-of-type.selected {
+    /*border-right: 1px solid;
+    border-right-style: inset;*/
+  }
+  .user-nav, .settings-nav, .notifications-nav {
+    display:none;
+  }
+  /* Small devices (tablets, 768px and up) */
+	@media (min-width: 768px) {
+    .user-nav, .settings-nav, .notifications-nav {
+      display: inline-block;
+    }
+  }
+
+	/* Medium devices (desktops, 992px and up) */
+	@media (min-width: 992px) {
+    nav.navigation {
+      margin-top: 1em;
+    }
+  }
+
+	/* Large devices (large desktops, 1200px and up) */
+	@media (min-width: 1280px) {
+	}
+</style>
+
+<nav class="item-shadow dark-primary-color text-primary-color navigation">
+   <!-- Same class as #tree element -->
+  <a href="#/dashboard" id="logo" class="divider-color col-xs-12 col-sm-3 col-md-4 col-lg-3">
+    Logo
+  </a>
+  <input id="page-head" class="divider-color search-box col-xs-8 col-sm-4 col-md-4 col-lg-5" type="text" placeholder="page title" disabled readonly>
+  </input>
+  <div class="divider-color navbuttons col-xs-4 col-sm-5 col-md-4 col-lg-4">
+    <a class="divider-color user-nav" href="#/user"> <span class="fa fa-user fa-fw"> </span> </a>
+    <a class="divider-color settings-nav" href"#/settings"> <span class="fa fa-cog fa-fw"> </span> </a>
+    <a class="divider-color notifications-nav" href="#/notifications"> <span class="fa fa-hashtag fa-fw"> </span> </a>
+    <a class="divider-color search-nav" href="#/search"> <span class="fa fa-search fa-fw"> </span> </a>
+  </div>
+</nav>

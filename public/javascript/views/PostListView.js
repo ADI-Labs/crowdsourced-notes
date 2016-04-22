@@ -14,14 +14,14 @@ define(['jquery',
 				this.delegateEvents();
 				this.collection = params.collection;
 				this.options = params.options;
-				this.options.success = function (collection, response, options) {
-					collection.each(function(model) {
-						console.log('postedOn', model.get('postedOn'));
-						var date = moment(model.get('postedOn')).fromNow();
-						model.set({postedOn: date});
-					});
-				}
-				this.collection.fetch(this.options);
+				// this.options.success = function (collection, response, options) {
+				// 	collection.each(function(model) {
+				// 		console.log('postedOn', model.get('postedOn'));
+				// 		var date = moment(model.get('postedOn')).fromNow();
+				// 		model.set({postedOn: date});
+				// 	});
+				// }
+				if (!params.noFetch) this.collection.fetch(this.options);
 				this.listenTo(this.collection, 'sync change', this.render);
 			},
 			render: function () {
