@@ -9,16 +9,16 @@
 		padding-left: 0.5em;
 		padding-bottom: 1em;
 		font-size: 16px;
-		color: gray;
 		font-weight: 300;
 	}
 	.post-content {
 		font-size: 18px;
 		line-height: 1.58;
 		letter-spacing: -.003em;
-		font-family: Georgia, Cambria, "Times New Roman", serif;
+		font-family: Sanchez, Georgia, Cambria, "Times New Roman", serif;
 		font-weight: 400;
 		word-wrap: break-word;
+		padding: 10px 1em;
 	}
 	.comment {
 		padding: 1% 1% 1% 2.5%;
@@ -27,7 +27,6 @@
 		font-weight: 700;
 	}
 	.comment-date {
-		color: gray;
 		font-weight: lighter;
 	}
 	.new-comment {
@@ -36,13 +35,13 @@
 		padding: 1em;
 		width: 100%;
 		border: none;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid;
 		font-size: 16px;
 		resize: none;
 	}
 	.new-comment:hover, .new-comment:active, .new-comment:focus {
 		border: none;
-		border-bottom: 1px solid rgba(0,0,0,0.32);
+		border-bottom: 1px solid;
 		box-shadow: 0 1px 3px 0 rgba(0,0,0,0.16),0 1px 5px 0 rgba(0,0,0,0.12);
 	}
 	.post-meta-row {
@@ -85,13 +84,13 @@
 </style>
 
 {{# post }}
-	<div class="page-header post-title">
+	<div class="page-header post-title primary-text-color">
 		<h1> {{ title }} </h1>
 	</div>
-	<div class="post-date">
+	<div class="post-date secondary-text-color">
 		Posted {{ postedOn }}
 	</div>
-	<p class="post-content">
+	<p class="post-content primary-text-color">
 		{{#htmlFormat}}
 			{{ content }}
 		{{/htmlFormat}}
@@ -109,18 +108,18 @@
 			<button class="downvote"><i class="fa fa-arrow-down"></i></button>
 		</div>
 	</div>
-	<div class="post-comments">
-		<h4><b>comments</b></h4>
+	<div class="post-comments divider-color">
+		<h4 class="primary-text-color"><b>comments</b></h4>
 	{{# comments}}
 		<div class="comment">
-			<div class="comment-author">
+			<div class="comment-author primary-text-color">
 				{{user}}
-				<span class="comment-date"><i>{{date}}</i></span>
+				<span class="comment-date secondary-text-color"><i>{{#fuzzyDate}}{{date}}{{/fuzzyDate}}</i></span>
 			</div>
-			<div class="comment-body">{{content}}</div>
+			<div class="comment-body primary-text-color">{{content}}</div>
 		</div>
 	{{/ comments}}
-		<textarea class="new-comment" rows="2"  placeholder="comment on this note"></textarea>
+		<textarea class="new-comment divider-color" rows="2"  placeholder="comment on this note"></textarea>
 	</div>
 &nbsp;
 {{/ post }}

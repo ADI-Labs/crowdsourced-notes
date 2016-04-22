@@ -1,6 +1,6 @@
 define('router',
-	['jquery', 'underscore', 'backbone'],
-	function ($, _, Backbone, DashboardView) {
+	['jquery', 'underscore', 'backbone', 'views/NavbarView'],
+	function ($, _, Backbone, NavbarView) {
 		// Setup router and declare routes
 		var AppRouter = Backbone.Router.extend({
 			routes: {
@@ -9,21 +9,34 @@ define('router',
 				'dashboard': 'showDashboard',
 				'new': 'showNewPost',
 				'section/:id': 'showSection',
-				'post/:id': 'showPost'
+				'post/:id': 'showPost',
+				'search': 'showSearch',
+				'search/:term': 'showSearch'
 			}
 		});
 
-		// Initialize router
+		//																					//
+		// Initialize router												//
+		//																					//
 		var initialize = function () {
 			var router = window.router ? window.router : new AppRouter();
-			var defaultContentSizing = "col-xs-12 col-sm-9 col-sm-push-3 col-md-8 col-md-push-4 col-lg-9 col-lg-push-3";
-			var fullWidthContentSizing = "col-xs-12 col-sm-12";
+			var defaultContentSizing = "col-xs-12 col-sm-8 col-sm-push-4 col-md-8 col-md-push-4 col-lg-9 col-lg-push-3";
+			var fullWidthContentSizing = "col-xs-12 col-sm-12"
 
-			console.log("Does this function ever run??? (Router.intialize())");
-			// Define the routes, render the right view
-			// appRouter.on('showSignUp', function () {});
-			// appRouter.on('showLogin', function () {});
+			//																					//
+			// Initialize navigation bar								//
+			//																					//
+			window.navbar = new NavbarView({
+				el: '#navbar'
+			});
 
+			//																					//
+			// Define the routes, render the right view //
+			//																					//
+
+			//																					//
+			// /#/dashboard															//
+			//																					//
 			router.on('route:showDashboard', function () {
 				// Load modules required for view
 				require(['views/DashboardView', 'collections/UserCollection', 'views/TreeView', 'collections/ClassCollection', 'collections/PostCollection'],
@@ -37,15 +50,21 @@ define('router',
 						recentPosts: new PostCollection(),
 						el: '#content'
 					});
-					var tree = window.navTree || new TreeView({
+					var tree = new TreeView({
 						collection: new ClassCollection(),
 						el: '#tree'
 					});
 					tree.show();
-					window.navTree = tree;
+					window.router.tree = tree;
+					window.navbar.setTitle('dashboard');
+					window.router.currentView = 'dashboard';
+					window.router.content = dashboard;
 				});
 			});
 
+			//																					//
+			// /#/new																		//
+			//																					//
 			router.on('route:showNewPost', function () {
 				// Load modules required for view
 				require(['views/NewPostView', 'views/TreeView', 'collections/ClassCollection', 'collections/SectionCollection', 'models/PostModel'],
@@ -61,9 +80,15 @@ define('router',
 							post: new PostModel(),
 							el: '#content'
 						});
-
+						window.router.content = newPost;
+						window.navbar.setTitle('new');
+						window.router.currentView = 'new';
 					});
 			});
+
+			//																					//
+			// /#/post 																	//
+			//																					//
 			router.on('route:showPost', function (postId) {
 				// Load modules required for view
 				require(['views/PostView', 'models/PostModel'], function (PostView, PostModel) {
@@ -75,10 +100,38 @@ define('router',
 						post: new PostModel({ _id: postId}),
 						el: '#content'
 					});
+					window.router.content = postView;
+					window.navbar.setTitle('post');
+					window.router.currentView = 'post';
 				});
 			});
-			// appRouter.on('showSection', function (sectionId) {});
-			window.router = router;
+			// router.on('showSection', function (sectionId) {});
+
+			//																					//
+			// /#/search																//
+			//																					//
+			router.on('route:showSearch', function (term) {
+					if (window.router.currentView === 'search' && term) {
+						window.router.content.trigger('search', term);
+					} else if (window.router.currentView !== 'search' && term) {
+						require(['views/SearchView', 'collections/PostCollection',
+							'collections/ClassCollection', 'collections/SectionCollection'],
+							function(SearchView, PostCollection, ClassCollection, SectionCollection) {
+								var searchView = new SearchView({
+									posts: new PostCollection(),
+									el: '#content'
+								})
+								if (term) searchView.trigger('search', term);
+								window.router.currentView = 'search';
+								window.router.content = searchView;
+							}
+						);
+					}
+			});
+
+			// Save router as a global object
+			window.router = _.extend(router, {content: {}, currentView: {}, tree: {} });
+			// Start the record of history
 			Backbone.history.start();
 		};
 

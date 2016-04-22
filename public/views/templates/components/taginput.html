@@ -5,7 +5,7 @@
   }
   .taginput-input {
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid;
     font-size: 1.5em;
     padding: 0.25em 0.25em 0.5em 0.5em;
     width: 100%;
@@ -17,7 +17,7 @@
   }
   .taginput-tag {
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid;
     font-size: 1.5em;
     margin-left: 0.125em;
     margin-top: 0.125em;
@@ -30,9 +30,8 @@
     float: left;
   }
   .taginput-tag-header {
-    background-color: black;
     color: gray;
-    font-weight: 100;
+    font-weight: 300;
     display: inline;
     padding: 0.25em 0.25em;
     margin: 0;
@@ -45,7 +44,6 @@
     left: 0;
   }
   .taginput-tag-body {
-    background-color: black;
     display: inline;
     padding: 0.25em 0.25em;
     margin: 0;
@@ -65,8 +63,6 @@
   .taginput-tag-body input {
     position: relative;
     left: 0;
-    background-color: black;
-    color:white;
     text-decoration: none;
     border:none;
     line-height: 1;
@@ -81,8 +77,7 @@
   .taginput-tag-remove {
     display: inline;
     padding: 0.25em;
-    border-left: solid 1px white;
-    background-color: black;
+    border-left: solid 1px;
     margin: 0;
     float: left;
   }
@@ -118,22 +113,22 @@
 
 <div class="taginput">
   {{#tags}}
-    <div class="taginput-tag" style="">
+    <div class="taginput-tag divider-color" style="">
       {{#header}}
-      <div class="taginput-tag-header">
+      <div class="taginput-tag-header accent-color">
         <span>{{.}}</span>
       </div>
       {{/header}}
-      <div class="taginput-tag-body">
-        <a>{{name}}</a>
-        <input type="text" placeholder="tag" />
+      <div class="taginput-tag-body accent-color">
+        <a class="text-primary-color">{{name}}</a>
+        <input class="accent-color" type="text" placeholder="tag" />
       </div>
-      <div class="taginput-tag-remove">
-        <i class="fa fa-times"></i>
+      <div class="taginput-tag-remove accent-color divider-color">
+        <i class="fa fa-times text-primary-color"></i>
       </div>
     </div>
   {{/tags}}
-  <input class="taginput-input" placeholder="#tags">
+  <input class="taginput-input primary-text-color divider-color" placeholder="#tags">
   </input>
 </div>
 
