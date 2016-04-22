@@ -3,28 +3,29 @@
 		font-size: 40px;
 	}
 	.professor{
-		color: Navy;
-		font-size:20px;
+		color: black;
 	}
 </style>
 
 <div>
 	<!-- insert nav bar on top -->
 	{{# section }}
-	<h1 class="title primary-text-color">{{title}} </h1>
-	<h2 class = "professor">{{professor}}</h2>
-	<ul>
+	<div class="page-header divider-color">
+		<h1 class="title primary-text-color">{{title}} </h1>
+	</div>
+	<h4 class = "professor">Professor: {{professor}}</h4>
+
 	{{# mostRecentLecture }}
-		<li><a href="#/lecture/{{_id}}">{{ title }}</a></li>
+		<h4 class = "professor"> Most Recent Lecture: <a href="#/lecture/{{_id}}">{{ title }}</a> </h4>
 		<div class="list-group">
 		{{# posts }}
-		<a href="#/lecture/{{_id}}" class="list-group-item">{{ title }}</a>
+			<a href="#/post/{{_id}}" class="list-group-item">{{ title }}</a>
 		{{/ posts }}
-	</div>
+		</div>
 	{{/ mostRecentLecture }}
-	</ul>
 
 	<!-- And also link to archived notes belonging to this class ???? -->
+	<h4> All Lectures </h4>
 	<div class="list-group">
 	{{# lectures }}
 		<a href="#/lecture/{{_id}}" class="list-group-item">{{ title }}</a>
