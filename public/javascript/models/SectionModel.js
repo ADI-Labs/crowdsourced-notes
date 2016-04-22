@@ -14,7 +14,8 @@ define(['jquery', 'underscore', 'backbone'],
 				if (_.isArray(response)) {
 					return response[0];
 				} return response;
-			}
+			},
+			references: 'lectures'
 		});
 	}
 );

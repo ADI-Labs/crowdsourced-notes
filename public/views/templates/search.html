@@ -1,0 +1,10 @@
+<div class="page-head">
+  {{# searchTerm }}
+    <h1 class="secondary-text-color"> Search results for <span class="primary-text-color">{{searchTerm}}</span> </h1>
+  {{/ searchTerm }}
+  {{^ searchTerm }}
+    <h1 class="primary-text-color"> Search <small class="secondary-text-color"> enter a query in the box above </small></h1>
+  {{/ searchTerm }}
+</div>
+<div id="results-view">
+</div>

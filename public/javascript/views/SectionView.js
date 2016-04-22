@@ -10,10 +10,18 @@ define(['jquery',
 				this.render();
 			},
 			render: function () {
-				console.log('section', this.model)
+				console.log('section', this.model);
+				var recentLecture;
+				_.each(this.model.attributes.lectures, function (lecture, i) {
+					recentLecture = i == 0 ? lecture : recentLecture;
+					if (new Date(lecture.date) > new Date(recentLecture.date)) {
+						recentLecture = lecture;
+					} 
+				})
 				this.$el.html(template({
 					users: this.model.toJSON(),
-					section: this.model.toJSON() 
+					section: this.model.toJSON(),
+					mostRecentLecture: recentLecture
 				}));
 			}
 		});
