@@ -6,6 +6,8 @@ define(
 			name: 'lecture',
 			defaults: {
 				id: null,
+				date: null,
+				section: null,
 				title: null,
 				profesor: null,
 				posts: []
