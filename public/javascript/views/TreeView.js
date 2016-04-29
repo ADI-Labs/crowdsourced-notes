@@ -25,6 +25,13 @@ define(['jquery', 'underscore', 'backbone', 'stache!/templates/tree'],
 				}
 				this.delegateEvents();
 			},
+			setCollection: function (collection) {
+				this.collection = collection;
+				this.listenTo(this.collection, 'sync change', this.render);
+				this.collection.fetch({
+					limit: 9
+				});
+			},
 			show: function () {
 				this.$el.show();
 			},
@@ -53,17 +60,16 @@ define(['jquery', 'underscore', 'backbone', 'stache!/templates/tree'],
 			expand: function (e) {
 				// Expanding and contracting functionality for tree nodes
 				var element = $(e.currentTarget);
-				var icon = element.children('i'); // This is the + or - expand icon
+				var icon = element.find('i'); // This is the + or - expand icon
 				if (icon.is('.expanded')) {
 					// If icon was clicked and is expanded, change to a + and contract
-					icon.removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+					icon.removeClass('fa-minus-square-o expanded').addClass('fa-plus-square-o');
 					element.find('.children').hide();
 				} else {
 					// If icon was clicked and is contracted, change to a - and expand
-					icon.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+					icon.removeClass('fa-plus-square-o').addClass('fa-minus-square-o expanded');
 					element.find('.children').show();
 				}
-				icon.toggleClass('expanded');
 			},
 			filter: function (e) {
 				// Filtering the tree's elements

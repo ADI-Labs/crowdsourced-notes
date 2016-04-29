@@ -1,42 +1,68 @@
 <style>
 	.navTree {
-		margin-top: 1.5em;
+		margin-top: 0em;
+		padding-top: 4px;
 	}
 	#tree::-webkit-scrollbar {
     display: none;
 	}
 	.tree-list {
-		padding: 1em;
 	}
 	.tree-list-item {
 		display: inline-block;
 		padding-right: 1em;
 		font-size: 1.5em;
+		width: 100%;
 		border: none;
-		border-bottom: 1px solid;
 	}
 	.children .tree-list-item {
-		font-size: 1em;
+		font-size: 1.25em;
 	}
 	.tree-list-node {
-		margin-top: 0.5em;
+		margin-top: 0em;
+		padding: 0.5em 0;
 		cursor: pointer;
+	}
+	.tree-list-node.child {
+		padding: 0.5em 0.25em;
 	}
 	.tree-list-node:last-child {
 		border:none;
+	}
+	.tree-list-node:hover {
+		background: rgba(66,66,66,0.1);
+	}
+	.tree-list-node i {
+		margin-left: .75em;
+	}
+	.tree-list-item-text {
+		margin-left: 0.5em;
+		text-decoration: none;
+	}
+	.tree-list-item-text.lecture {
+		width: 80%;
+		display: inline-block;
+	}
+	.badges.lecture {
+		width: 15%;
+		text-align: right;
+		display: inline-block;
 	}
 	.tree-list-node .children {
 		padding-left: 2em;
 		display: none;
 	}
-	.tree-filter input{
+	.tree-filter input {
 		font-size: 1.5em;
 		background-color: rgba(0,0,0,0);
 		width: 100%;
 		padding: 0.25em 0.25em 0.5em 0.5em;
-		margin-right: 1em;
-		border: none;
-		border-bottom: 1px solid;
+		/*margin-right: 1em;*/
+		border-top: none;
+		border-right: none;
+		border-left: none;
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
 	}
 	.tree-filter input::placeholder {
 		font-style: italic;
@@ -63,15 +89,15 @@
 	<!-- To display TreeList of Classes (sub:section) -->
 	{{# class }}
 	<div class="tree-list-node parent">
-		<i class="fa fa-plus-square-o"></i>
-		<a class="tree-list-item dark-primary-text divider-color" data-id="{{ _id }}">
-			{{course_code}} {{title}} <span class="badge"></span>
+		<a class="tree-list-item primary-text-color divider-color" data-id="{{ _id }}">
+		<i class="fa fa-plus-square-o "></i>
+			<span class="tree-list-item-text">{{course_code}} {{title}} <span class="badge"></span></span>
 		</a>
 		<div class="children">
 			{{#sections}}
 			<div class="tree-list-node child">
-				<a class="tree-list-item dark-primary-text divider-color" href="#/section/{{ _id }}" data-id="{{ _id }}">
-					{{ section_code }} {{ title }} <span class="badge"></span>
+				<a class="tree-list-item secondary-text-color divider-color" href="#/section/{{ _id }}" data-id="{{ _id }}">
+					<span class="tree-list-item-text">{{ section_code }} {{ title }} <span class="badge"></span></span>
 				</a>
 			</div>
 			{{/sections}}
@@ -82,15 +108,16 @@
 	<!-- To display TreeList of Sections (sub: lecture) -->
 	{{# section }}
 	<div class="tree-list-node parent">
-		<i class="fa fa-plus-square-o"></i>
-		<a class="tree-list-item divider-color dark-primary-text" data-id="{{ _id }}">
-			{{section_code}} {{title}} <span class="badge"></span>
+		<a class="tree-list-item divider-color primary-text-color" data-id="{{ _id }}">
+			<i class="fa fa-plus-square-o"></i>
+			<span class="tree-list-item-text">{{section_code}} {{title}} <span class="badge"></span></span>
 		</a>
 		<div class="children">
 			{{# lectures }}
 			<div class="tree-list-node child">
-				<a class="tree-list-item divider-color dark-primary-text" href="#/lecture/{{ _id }}" data-id="{{ _id }}">
-					{{ title }} <span class="badge">{{ posts.length }}</span>
+				<a class="tree-list-item divider-color secondary-text-color" href="#/lecture/{{ _id }}" data-id="{{ _id }}">
+					<span class="tree-list-item-text lecture">{{ title }}</span>
+					<div class="badges lecture"><span class="badge">{{ posts.length }}</span></div>
 				</a>
 			</div>
 			{{/ lectures }}
