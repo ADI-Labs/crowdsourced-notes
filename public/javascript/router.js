@@ -1,6 +1,11 @@
 define('router',
-	['jquery', 'underscore', 'backbone', 'views/NavbarView'],
-	function ($, _, Backbone, NavbarView) {
+	['jquery',
+	 'underscore',
+	 'backbone',
+	 'views/NavbarView',
+	 'views/TreeView',
+ 	 'collections/ClassCollection'],
+	function ($, _, Backbone, NavbarView, TreeView, ClassCollection) {
 		// Setup router and declare routes
 		var AppRouter = Backbone.Router.extend({
 			routes: { //routes translate to events
@@ -25,12 +30,15 @@ define('router',
 			var fullWidthContentSizing = "col-xs-12 col-sm-12"
 
 			//																					//
-			// Initialize navigation bar								//
+			// Initialize navigation bar and tree				//
 			//																					//
 			window.navbar = new NavbarView({
 				el: '#navbar'
 			});
-
+			window.tree = new TreeView({
+				collection: new ClassCollection(),
+				el: '#tree'
+			});
 			//																					//
 			// Define the routes, render the right view //
 			//																					//
@@ -40,23 +48,19 @@ define('router',
 			//																					//
 			router.on('route:showDashboard', function () {
 				// Load modules required for view
-				require(['views/DashboardView', 'collections/UserCollection', 'views/TreeView', 'collections/ClassCollection', 'collections/PostCollection'],
-				  function (DashboardView, UserCollection, TreeView, ClassCollection, PostCollection) {
+				require(['views/DashboardView', 'collections/UserCollection', 'collections/ClassCollection', 'collections/PostCollection'],
+				  function (DashboardView, UserCollection, ClassCollection, PostCollection) {
 					// Show tree and size content
 					$('#content').removeClass(fullWidthContentSizing).addClass(defaultContentSizing);
-					$('#tree').show();
+					// $('#tree').show();
 
 					// Initialize page
 					var dashboard = new DashboardView({
 						recentPosts: new PostCollection(),
 						el: '#content'
 					});
-					var tree = new TreeView({
-						collection: new ClassCollection(),
-						el: '#tree'
-					});
-					tree.show();
-					window.router.tree = tree;
+					window.tree.setCollection(new ClassCollection());
+					window.tree.show();
 					window.navbar.setTitle('dashboard');
 					window.router.currentView = 'dashboard';
 					window.router.content = dashboard;
@@ -68,11 +72,11 @@ define('router',
 			//																					//
 			router.on('route:showNewPost', function () {
 				// Load modules required for view
-				require(['views/NewPostView', 'views/TreeView', 'collections/ClassCollection', 'collections/SectionCollection', 'models/PostModel'],
-					function (NewPostView, TreeView, ClassCollection, SectionCollection, PostModel) {
+				require(['views/NewPostView', 'collections/ClassCollection', 'collections/SectionCollection', 'models/PostModel'],
+					function (NewPostView, ClassCollection, SectionCollection, PostModel) {
 						// Hide tree and expand content
 						$('#content').removeClass(defaultContentSizing).addClass(fullWidthContentSizing);
-						$('#tree').hide();
+						window.tree.hide();
 
 						// Initialize page
 						var newPost = new NewPostView({
@@ -93,21 +97,22 @@ define('router',
 					function (SectionView, TreeView, ClassCollection, SectionCollection, PostModel, SectionModel) { //May require more things!
 						//Show tree and size content
 						$('#content').removeClass(fullWidthContentSizing).addClass(defaultContentSizing);
-						$('#tree').show();
 
 						//Initialize page
-						var section = new SectionView({
-							//What do I want to show here, how do I show it and where do I get that data from?
-							model: new SectionModel({_id: sectionId}),
-							el: '#content'
+						var model = new SectionModel({_id: sectionId});
+						model.fetch({
+							success: function (m) {
+								section = new SectionView({
+									//What do I want to show here, how do I show it and where do I get that data from?
+									model: m,
+									el: '#content'
+								});
+								window.tree.collection = new SectionCollection(m);
+								window.tree.render();
+								window.tree.show();
+							}
 						});
-						var tree = window.navTree || new TreeView({
-							collection: new ClassCollection(),
-							el:'#tree' //displays el Element in views.templates.layout.jade
-						});
-
 					});
-
 			});
 
 			//																					//
